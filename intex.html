@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wings of Help — Фонд помощи животным</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #080D0B;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 30px 8%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00C896;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 30px;
+      font-size: 14px;
+    }
+
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: left;
+      padding: 80px 8%;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          #080D0B 0%,
+          rgba(8, 13, 11, 0.95) 30%,
+          rgba(8, 13, 11, 0.25) 100%
+        ),
+        url("Images/hero.png") center right / cover no-repeat;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 4.5vw, 68px);
+      max-width: 720px;
+      line-height: 1.12;
+      letter-spacing: -1.5px;
+      margin-bottom: 25px;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero h1 span {
+      color: #00C896;
+    }
+
+    .hero p {
+      color: #a3b3aa;
+      font-size: 18px;
+      max-width: 550px;
+      line-height: 1.7;
+      margin-bottom: 35px;
+      animation: fadeUp 1s ease 0.25s both;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #00C896;
+      color: #080D0B;
+      padding: 18px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ffffff;
+      transform: translateY(-3px);
+    }
+
+    .hero .btn {
+      animation: fadeUp 1s ease 0.5s both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(35px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 650px) {
+      header {
+        padding: 24px 6%;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        padding: 80px 6%;
+        justify-content: flex-end;
+        min-height: 85vh;
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(
+            0deg,
+            #080D0B 0%,
+            rgba(8, 13, 11, 0.25) 100%
+          ),
+          url("Images/hero.png") center / cover no-repeat;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero h1,
+      .hero p,
+      .hero .btn {
+        animation: none;
+      }
+    }
+
+    .stories {
+  padding: 110px 8%;
+  background: #0c1511;
+}
+
+.stories-heading {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 55px;
+}
+
+.eyebrow {
+  color: #00C896;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.stories h2 {
+  font-size: clamp(32px, 4vw, 54px);
+  margin: 20px 0;
+  line-height: 1.15;
+}
+
+.stories h2 span {
+  color: #00C896;
+}
+
+.stories-heading p {
+  color: #a3b3aa;
+  line-height: 1.7;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+}
+
+.story-card {
+  background: #142019;
+  border: 1px solid #243b30;
+  border-radius: 22px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.story-card:hover {
+  transform: translateY(-8px);
+}
+
+.story-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 280px;
+  overflow: hidden;
+}
+
+.story-photos > img,
+.sensitive-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sensitive-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.sensitive-photo img {
+  filter: blur(20px);
+  transform: scale(1.12);
+}
+
+.sensitive-photo span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.25);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.story-labels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  background: #0c1511;
+  padding: 12px;
+  color: #00C896;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.story-info {
+  padding: 25px;
+}
+
+.story-info h3 {
+  font-size: 21px;
+  margin-bottom: 12px;
+}
+
+.story-info p {
+  color: #a3b3aa;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .stories {
+    padding: 75px 6%;
+  }
+
+  .stories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .story-photos {
+    height: 240px;
+  }
+}
+
+/* Исправление фотографий в историях */
+.story-photos {
+  height: 320px;
+}
+
+.story-photos > img,
+.story-photos > .sensitive-photo {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: block;
+}
+
+.story-photos > img,
+.sensitive-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 700px) {
+  .story-photos {
+    height: 260px;
+  }
+}
+
+/* Интерактивное сравнение До / После */
+
+.comparison {
+  --position: 50%;
+  position: relative;
+  width: 100%;
+  height: 340px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #080D0B;
+}
+
+.comparison-after,
+.comparison-before img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.comparison-before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  clip-path: inset(0 calc(100% - var(--position)) 0 0);
+  overflow: hidden;
+}
+
+.comparison .dog-blur {
+  filter: blur(22px);
+  transform: scale(1.12);
+}
+
+.sensitive-label {
+  position: absolute;
+  top: 18px;
+  left: 12px;
+  max-width: 45%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.65);
+  color: white;
+  font-size: 11px;
+  text-align: center;
+}
+
+.comparison-line {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: var(--position);
+  width: 3px;
+  background: white;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.comparison-line span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #00C896;
+  color: #080D0B;
+  font-size: 26px;
+  font-weight: bold;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.35);
+}
+
+.comparison input[type="range"] {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+
+@media (max-width: 700px) {
+  .comparison {
+    height: 280px;
+  }
+}
+/* Надписи До / После */
+
+.comparison::before {
+  content: "ДО";
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  background: rgba(8, 13, 11, 0.8);
+  color: white;
+  padding: 9px 15px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+.comparison::after {
+  content: "ПОСЛЕ";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  background: #00C896;
+  color: #080D0B;
+  padding: 9px 15px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+
+.comparison .sensitive-label {
+  top: auto;
+  bottom: 16px;
+}
+/* Надписи До / После */
+
+/* Улучшаем отображение фотографий */
+
+.comparison-after,
+.comparison-before img {
+  object-position: center center;
+}
+
+.comparison {
+  height: 500px;
+}
+
+/* Мягкое свечение карточек */
+.story-card:hover {
+  border-color: #00C896;
+  box-shadow: 0 15px 45px rgba(0, 200, 150, 0.12);
+}
+
+@media (max-width: 700px) {
+  .comparison {
+    height: 350px;
+  }
+}
+
+/* Раздел О фонде */
+
+.about {
+  padding: 130px 8%;
+  background: #080D0B;
+}
+
+.about-content {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.about-label {
+  color: #00C896;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.about h2 {
+  font-size: clamp(38px, 5vw, 70px);
+  max-width: 850px;
+  line-height: 1.12;
+  margin: 25px 0;
+}
+
+.about h2 span {
+  color: #00C896;
+}
+
+.about-content > p {
+  color: #a3b3aa;
+  font-size: 18px;
+  line-height: 1.8;
+  max-width: 650px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 65px;
+}
+
+.about-card {
+  padding: 40px 30px;
+  background: #101a15;
+  border: 1px solid #243b30;
+  border-radius: 22px;
+  transition: 0.35s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-8px);
+  border-color: #00C896;
+  box-shadow: 0 15px 45px rgba(0, 200, 150, 0.1);
+}
+
+.about-card > span {
+  color: #00C896;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.about-card h3 {
+  font-size: 25px;
+  margin: 30px 0 15px;
+}
+
+.about-card p {
+  color: #a3b3aa;
+  line-height: 1.7;
+}
+
+@media (max-width: 700px) {
+  .about {
+    padding: 85px 6%;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+  }
+
+  .about-content > p {
+    font-size: 16px;
+  }
+}
+
+/* Раздел пожертвований */
+
+.donate {
+  padding: 120px 8%;
+  background: #0c1511;
+}
+
+.donate-heading {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 60px;
+}
+
+.donate-heading > span {
+  color: #00C896;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.donate h2 {
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.12;
+  margin: 22px 0;
+}
+
+.donate h2 em {
+  display: block;
+  color: #00C896;
+  font-style: normal;
+}
+
+.donate-heading p {
+  color: #a3b3aa;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.donate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1250px;
+  margin: auto;
+}
+
+.donate-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 38px 30px;
+  min-height: 300px;
+  background: #142019;
+  border: 1px solid #294034;
+  border-radius: 24px;
+  transition: 0.3s ease;
+}
+
+.donate-card:hover {
+  transform: translateY(-8px);
+  border-color: #00C896;
+}
+
+.donate-card.featured {
+  border-color: #00C896;
+  background: #193329;
+}
+
+.donate-icon {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.donate-card h3 {
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+
+.donate-card p {
+  color: #a3b3aa;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.donate-btn {
+  display: inline-block;
+  margin-top: auto;
+  padding: 15px 25px;
+  background: #00C896;
+  color: #080D0B;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.donate-btn:hover {
+  background: white;
+}
+
+.donate-soon {
+  margin-top: auto;
+  color: #a3b3aa;
+  font-size: 13px;
+}
+
+@media (max-width: 800px) {
+  .donate {
+    padding: 85px 6%;
+  }
+
+  .donate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .donate-card {
+    min-height: 250px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* КОНТАКТЫ */
+
+.contact {
+  padding: 140px 8%;
+  background: #080D0B;
+  text-align: center;
+}
+
+.contact-content {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.contact-label {
+  color: #00C896;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.contact h2 {
+  font-size: clamp(40px, 6vw, 78px);
+  line-height: 1.1;
+  margin: 25px 0;
+}
+
+.contact h2 span {
+  color: #00C896;
+}
+
+.contact-content > p {
+  color: #a3b3aa;
+  font-size: 18px;
+  line-height: 1.8;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 45px;
+}
+
+.contact-btn {
+  display: inline-block;
+  padding: 18px 30px;
+  border-radius: 50px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.contact-btn.primary {
+  background: #00C896;
+  color: #080D0B;
+}
+
+.contact-btn.secondary {
+  border: 1px solid #00C896;
+  color: #00C896;
+}
+
+.contact-btn:hover {
+  transform: translateY(-5px);
+}
+
+.contact-btn.primary:hover {
+  background: white;
+}
+
+.contact-btn.secondary:hover {
+  background: #00C896;
+  color: #080D0B;
+}
+
+.contact-location {
+  margin-top: 55px;
+  color: #a3b3aa;
+  font-size: 14px;
+}
+
+/* ФУТЕР */
+
+.footer {
+  padding: 65px 8% 25px;
+  background: #0c1511;
+  border-top: 1px solid #243b30;
+}
+
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding-bottom: 55px;
+}
+
+.footer-logo {
+  font-size: 30px;
+  font-weight: bold;
+  color: #00C896;
+  margin-bottom: 12px;
+}
+
+.footer-top p {
+  color: #a3b3aa;
+}
+
+.footer-donate {
+  padding: 16px 28px;
+  border-radius: 40px;
+  background: #00C896;
+  color: #080D0B;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-donate:hover {
+  background: white;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 25px;
+  border-top: 1px solid #243b30;
+  color: #82968a;
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .contact {
+    padding: 90px 6%;
+  }
+
+  .contact-content > p {
+    font-size: 16px;
+  }
+
+  .footer {
+    padding: 55px 6% 25px;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-logo {
+    font-size: 25px;
+  }
+}
+
+/* Плавное появление разделов */
+
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal.reveal-ready {
+    opacity: 0;
+    transform: translateY(35px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
+  }
+
+  .reveal.reveal-ready.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Улучшение главного экрана на телефонах */
+
+@media (max-width: 650px) {
+
+  .hero::before {
+    background:
+      linear-gradient(
+        0deg,
+        rgba(8, 13, 11, 0.98) 0%,
+        rgba(8, 13, 11, 0.82) 28%,
+        rgba(8, 13, 11, 0.15) 75%
+      ),
+      url("Images/hero.png") center / cover no-repeat;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 8vw, 42px);
+    line-height: 1.15;
+    letter-spacing: -1px;
+  }
+
+  .hero p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .hero .btn {
+    padding: 15px 25px;
+    font-size: 14px;
+  }
+
+}
+
+/* Мобильное меню */
+
+.menu-toggle,
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 650px) {
+  header {
+    position: relative;
+    z-index: 100;
+  }
+
+  .menu-toggle {
+    display: block;
+    background: transparent;
+    border: 1px solid #00C896;
+    color: #00C896;
+    font-size: 25px;
+    padding: 6px 13px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 30px 6%;
+    background: #101a15;
+    border-bottom: 1px solid #00C896;
+  }
+
+  .mobile-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .mobile-menu a:hover {
+    color: #00C896;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">WINGS OF HELP.</div>
+
+    <nav>
+  <a href="#home">Главная</a>
+  <a href="#stories">Наши истории</a>
+  <a href="#about">О фонде</a>
+  <a href="#donate">Помочь</a>
+  <a href="#contact">Контакты</a>
+</nav>
+
+<button class="menu-toggle"
+        type="button"
+        aria-label="Открыть меню"
+        aria-expanded="false"
+        aria-controls="mobile-menu">
+  ☰
+</button>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#home">Главная</a>
+  <a href="#stories">Наши истории</a>
+  <a href="#about">О фонде</a>
+  <a href="#donate">Помочь животным</a>
+  <a href="#contact">Контакты</a>
+</div>
+
+  </header>
+
+<section class="hero" id="home">
+    <h1>
+      Они не могут попросить о помощи.
+      <span>Но мы можем их услышать.</span>
+    </h1>
+
+    <p>
+      Мы помогаем животным, оказавшимся в беде.
+      Вместе мы можем подарить им второй шанс
+      на счастливую жизнь.
+    </p>
+
+    <a href="#donate" class="btn">Помочь животным ↗️</a>
+  </section>
+
+<section class="stories" id="stories">
+  <div class="stories-heading">
+    <span class="eyebrow">НАШИ ИСТОРИИ</span>
+    <h2>Каждая жизнь <span>имеет значение.</span></h2>
+    <p>
+      За каждой историей стоит борьба, забота
+      и надежда на новую жизнь.
+    </p>
+  </div>
+
+  <div class="stories-grid">
+
+  <!-- КОТЁНОК -->
+  <article class="story-card">
+    <div class="comparison">
+      <img class="comparison-after"
+           src="Images/cat-after.jpg"
+           alt="Котёнок после лечения">
+
+      <div class="comparison-before">
+        <img src="Images/cat-before.jpg"
+             alt="Котёнок до лечения">
+      </div>
+
+      <div class="comparison-line">
+        <span>↔</span>
+      </div>
+
+      <input type="range"
+             min="0" max="100" value="50"
+             aria-label="Сравнить фотографии котёнка до и после">
+    </div>
+
+    <div class="story-info">
+      <h3>История маленького котёнка</h3>
+      <p>Каждый заслуживает шанса на спасение.</p>
+    </div>
+  </article>
+
+  <!-- СОБАКА -->
+  <article class="story-card">
+    <div class="comparison">
+      <img class="comparison-after"
+           src="Images/dog-after.jpg"
+           alt="Собака после лечения">
+
+      <div class="comparison-before">
+        <img class="dog-blur"
+             src="Images/dog-before.jpg"
+             alt="Размытая фотография собаки до лечения">
+        <span class="sensitive-label">Чувствительные кадры</span>
+      </div>
+
+      <div class="comparison-line">
+        <span>↔</span>
+      </div>
+
+      <input type="range"
+             min="0" max="100" value="50"
+             aria-label="Сравнить фотографии собаки до и после">
+    </div>
+
+    <div class="story-info">
+      <h3>История спасения собаки</h3>
+      <p>Забота и помощь меняют судьбы.</p>
+    </div>
+  </article>
+
+</div>
+
+    </article>
+
+    
+
+  </div>
+</section>
+
+<section class="about" id="about">
+
+  <div class="about-content">
+
+    <span class="about-label">КТО МЫ</span>
+
+    <h2>
+      Помощь начинается
+      <span>с неравнодушия.</span>
+    </h2>
+
+    <p>
+      Wings of Help — фонд помощи животным
+      в Алматы. Мы помогаем тем, кто оказался
+      в беде, нуждается в лечении, заботе
+      и безопасном доме.
+    </p>
+
+    <div class="about-grid">
+
+      <div class="about-card">
+        <span>01</span>
+        <h3>Спасение</h3>
+        <p>Помогаем животным в трудных ситуациях.</p>
+      </div>
+
+      <div class="about-card">
+        <span>02</span>
+        <h3>Лечение</h3>
+        <p>Организуем необходимую ветеринарную помощь.</p>
+      </div>
+
+      <div class="about-card">
+        <span>03</span>
+        <h3>Забота</h3>
+        <p>Помогаем животным получить шанс на новую жизнь.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="donate" id="donate">
+
+  <div class="donate-heading">
+    <span>ПОДДЕРЖАТЬ WINGS OF HELP</span>
+
+    <h2>
+      Маленькая помощь.
+      <em>Большая надежда.</em>
+    </h2>
+
+    <p>
+      Ваша поддержка помогает нам заботиться
+      о животных, которым нужна помощь.
+    </p>
+  </div>
+
+  <div class="donate-grid">
+
+    <div class="donate-card featured">
+      <div class="donate-icon">💚</div>
+      <h3>Kaspi Pay</h3>
+      <p>Поддержать животных через Kaspi Pay.</p>
+
+      <a
+        href="https://pay.kaspi.kz/pay/aixpvzfg"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="donate-btn">
+        Пожертвовать ↗
+      </a>
+    </div>
+
+    <div class="donate-card">
+      <div class="donate-icon">❤️</div>
+      <h3>Kaspi</h3>
+      <p>Реквизиты для перевода добавим позже.</p>
+      <span class="donate-soon">Скоро</span>
+    </div>
+
+    <div class="donate-card">
+      <div class="donate-icon">🤍</div>
+      <h3>Halyk</h3>
+      <p>Реквизиты для перевода добавим позже.</p>
+      <span class="donate-soon">Скоро</span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- КОНТАКТЫ -->
+<section class="contact" id="contact">
+
+  <div class="contact-content">
+    <span class="contact-label">СВЯЖИТЕСЬ С НАМИ</span>
+
+    <h2>
+      Вместе мы можем
+      <span>больше.</span>
+    </h2>
+
+    <p>
+      Хотите помочь животным, стать партнёром
+      или задать вопрос? Мы всегда рады
+      неравнодушным людям.
+    </p>
+
+    <div class="contact-buttons">
+      <a
+        href="https://wa.me/77079048428"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="contact-btn primary">
+        Написать в WhatsApp ↗
+      </a>
+
+      <a
+        href="https://www.instagram.com/_wings_of_help_/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="contact-btn secondary">
+        Наш Instagram ↗
+      </a>
+    </div>
+
+    <div class="contact-location">
+      📍 Алматы, Казахстан
+    </div>
+  </div>
+
+</section>
+
+<!-- ПОДВАЛ САЙТА -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">WINGS OF HELP.</div>
+      <p>Каждая жизнь имеет значение.</p>
+    </div>
+
+    <a href="#donate" class="footer-donate">
+      Поддержать фонд ↗
+    </a>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Wings of Help</span>
+    <span>С любовью к животным 💚</span>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll(".comparison").forEach(comparison => {
+    const slider = comparison.querySelector('input[type="range"]');
+
+    slider.addEventListener("input", () => {
+      comparison.style.setProperty("--position", slider.value + "%");
+    });
+  });
+</script>
+
+<script>
+  const revealElements = document.querySelectorAll(
+    ".story-card, .about-card, .donate-card, .contact-content"
+  );
+
+  if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    revealElements.forEach(element => {
+      element.classList.add("reveal");
+
+      if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+        element.classList.add("reveal-ready");
+        revealObserver.observe(element);
+      }
+    });
+  }
+</script>
+<script>
+  const menuButton = document.querySelector(".menu-toggle");
+  const mobileMenu = document.querySelector(".mobile-menu");
+
+  menuButton.addEventListener("click", () => {
+    const isOpen = mobileMenu.classList.toggle("open");
+
+    menuButton.setAttribute("aria-expanded", isOpen);
+    menuButton.setAttribute(
+      "aria-label",
+      isOpen ? "Закрыть меню" : "Открыть меню"
+    );
+
+    menuButton.textContent = isOpen ? "✕" : "☰";
+  });
+
+  mobileMenu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.remove("open");
+      menuButton.textContent = "☰";
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Открыть меню");
+    });
+  });
+</script>
+</body>
+</html>
